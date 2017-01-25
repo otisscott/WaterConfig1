@@ -95,7 +95,6 @@ function AppendThings(){
     $(gpuCollection).each(function() {
         $('#gpusel1').append($("<option>" + this.name + "</option>"))
     });
-
     $('#gpusel1').change(function() {
         myGPU1 = 0;
         $(gpuCollection).each(function(){
@@ -104,34 +103,6 @@ function AppendThings(){
             }
         });
     });
-    $('#gpusel2').change(function() {
-        myGPU1 = 0;
-        $(gpuCollection).each(function(){
-            if(this.name = $('#gpusel2 :selected').text()) {
-                myGPU2 = this;
-            }
-        });
-    });
-    $('#gpusel3').change(function() {
-        myGPU1 = 0;
-        $(gpuCollection).each(function(){
-            if(this.name = $('#gpusel3 :selected').text()) {
-                myGPU3 = this;
-            }
-        });
-    });
-    $('#gpusel4').change(function() {
-        myGPU1 = 0;
-        $(gpuCollection).each(function(){
-            if(this.name = $('#gpusel4 :selected').text()) {
-                myGPU1 = this;
-            }
-        });
-    });
-    $(caseCollection).each(function() {
-        $('#casesel').append($("<option>" + this.name + "</option>"))
-    });
-
     $('#casesel').change(function() {
         myCase = 0;
         $(caseCollection).each(function(){
@@ -142,27 +113,63 @@ function AppendThings(){
         });
     });
 }
-var gpuCount;
+var gpusel2ran = 0;
+var gpusel3ran = 0;
+var gpusel4ran = 0;
 function addGPU() {
-    if($('#gpusel4 :selected') == ("None" || myGPU4.name)) {
-        gpuCount = 4;
+    $(caseCollection).each(function() {
+        $('#casesel').append($("<option>" + this.name + "</option>"))
+    });
+    if($('#gpusel3 :selected').text() == "None" || $('#gpusel3 :selected').text() == myGPU3.name) {
+        $('.GPU3').after( "<tr class='GPU4'> <td class='text-left'>GPU</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel4'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
+        $('#addGPU').remove();
     }
-    else if($('#gpusel3 :selected') == ("None" || myGPU3.name)) {
-        gpuCount = 3;
-    }
-    else if($('#gpusel2 :selected') == ("None" || myGPU2.name)) {
-        gpuCount = 2;
+    else if($('#gpusel2 :selected').text() == "None" || $('#gpusel2 :selected').text() == myGPU2.name) {
+        $('.GPU2').after( "<tr class='GPU3'> <td class='text-left'>GPU</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel3'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
     }
     else {
-        gpuCount = 1;
+        $('.GPU1').after( "<tr class='GPU2'> <td class='text-left'>GPU</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel2'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
     }
-    console.log($('#gpusel2 :selected'));
-    console.log(gpuCount);
-    $('.GPU' + (gpuCount)).after( "<tr class='GPU" + (gpuCount + 1) + "'> <td class='text-left'>GPU</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel" + (gpuCount + 1) + "'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
-    $(gpuCollection).each(function() {
-        $('#gpusel' + (gpuCount + 1)).append($("<option>" + this.name + "</option>"))
+    if(gpusel2ran == 0) {
+        $(gpuCollection).each(function () {
+            $('#gpusel2').append($("<option>" + this.name + "</option>"))
+        });
+        gpusel2ran = 1;
+    }
+    $('#gpusel2').change(function() {
+        myGPU2 = 0;
+        $(gpuCollection).each(function(){
+            if(this.name == $('#gpusel2 :selected').text()) {
+                myGPU2 = this;
+            }
+        });
     });
-
+    if(gpusel3ran == 0) {
+        $(gpuCollection).each(function () {
+            $('#gpusel3').append($("<option>" + this.name + "</option>"))
+        });
+    }
+    $('#gpusel3').change(function() {
+        myGPU3 = 0;
+        $(gpuCollection).each(function(){
+            if(this.name == $('#gpusel3 :selected').text()) {
+                myGPU3 = this;
+            }
+        });
+    });
+    if(gpusel4ran == 0) {
+        $(gpuCollection).each(function () {
+            $('#gpusel4').append($("<option>" + this.name + "</option>"))
+        });
+    }
+    $('#gpusel4').change(function() {
+        myGPU4 = 0;
+        $(gpuCollection).each(function(){
+            if(this.name == $('#gpusel4 :selected').text()) {
+                myGPU4 = this;
+            }
+        });
+    });
 }
 var incomp = [];
 function CompComp() {
@@ -179,7 +186,7 @@ function CompComp() {
         }
     });
     var gpuComp1 = 1;
-    if(GPU2 !== "") {
+    if(myGPU2 !== "") {
         if(myGPU1.brand == myGPU2.brand && myGPU1.series == myGPU2.series);
     }
 

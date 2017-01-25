@@ -103,11 +103,13 @@ function AppendThings(){
             }
         });
     });
+    $(caseCollection).each(function() {
+        $('#casesel').append($("<option>" + this.name + "</option>"))
+    });
     $('#casesel').change(function() {
         myCase = 0;
         $(caseCollection).each(function(){
-            var selectedcase = $('#casesel :selected').text();
-            if(this.name == selectedcase) {
+            if(this.name == $('#casesel :selected').text()) {
                 myCase = this;
             }
         });
@@ -115,11 +117,8 @@ function AppendThings(){
 }
 var gpusel2ran = 0;
 var gpusel3ran = 0;
-var gpusel4ran = 0;
+
 function addGPU() {
-    $(caseCollection).each(function() {
-        $('#casesel').append($("<option>" + this.name + "</option>"))
-    });
     if($('#gpusel3 :selected').text() == "None" || $('#gpusel3 :selected').text() == myGPU3.name) {
         $('.GPU3').after( "<tr class='GPU4'> <td class='text-left'>GPU</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel4'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
         $('#addGPU').remove();
@@ -144,9 +143,11 @@ function addGPU() {
             }
         });
     });
-    if(gpusel3ran == 0) {
+    gpusel3ran += 1;
+    if(gpusel3ran == 2) {
         $(gpuCollection).each(function () {
             $('#gpusel3').append($("<option>" + this.name + "</option>"))
+            gpusel3ran = 0;
         });
     }
     $('#gpusel3').change(function() {
@@ -157,11 +158,9 @@ function addGPU() {
             }
         });
     });
-    if(gpusel4ran == 0) {
-        $(gpuCollection).each(function () {
-            $('#gpusel4').append($("<option>" + this.name + "</option>"))
-        });
-    }
+    $(gpuCollection).each(function () {
+        $('#gpusel4').append($("<option>" + this.name + "</option>"))
+    });
     $('#gpusel4').change(function() {
         myGPU4 = 0;
         $(gpuCollection).each(function(){

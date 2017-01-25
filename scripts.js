@@ -104,30 +104,6 @@ function AppendThings(){
             }
         });
     });
-    $('#gpusel2').change(function() {
-        myGPU1 = 0;
-        $(gpuCollection).each(function(){
-            if(this.name = $('#gpusel2 :selected').text()) {
-                myGPU2 = this;
-            }
-        });
-    });
-    $('#gpusel3').change(function() {
-        myGPU1 = 0;
-        $(gpuCollection).each(function(){
-            if(this.name = $('#gpusel3 :selected').text()) {
-                myGPU3 = this;
-            }
-        });
-    });
-    $('#gpusel4').change(function() {
-        myGPU1 = 0;
-        $(gpuCollection).each(function(){
-            if(this.name = $('#gpusel4 :selected').text()) {
-                myGPU1 = this;
-            }
-        });
-    });
     $(caseCollection).each(function() {
         $('#casesel').append($("<option>" + this.name + "</option>"))
     });
@@ -144,31 +120,54 @@ function AppendThings(){
 }
 var gpuCount;
 function addGPU() {
-    if($('#gpusel4 :selected') == ("None" || myGPU4.name)) {
+    console.log(myGPU2.name, myGPU3.name, myGPU4.name);
+    if($('#gpusel4 :selected').text() == ("None" || myGPU4.name)) {
         gpuCount = 4;
     }
-    else if($('#gpusel3 :selected') == ("None" || myGPU3.name)) {
+    else if($('#gpusel3 :selected').text() == ("None" || myGPU3.name)) {
         gpuCount = 3;
     }
-    else if($('#gpusel2 :selected') == ("None" || myGPU2.name)) {
+    else if($('#gpusel2 :selected').text() == ("None" || myGPU2.name)) {
         gpuCount = 2;
     }
     else {
         gpuCount = 1;
     }
-    console.log($('#gpusel2 :selected'));
     console.log(gpuCount);
-    $('.GPU' + (gpuCount)).after( "<tr class='GPU" + (gpuCount + 1) + "'> <td class='text-left'>GPU</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel" + (gpuCount + 1) + "'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
+    $('".GPU" + (gpuCount + 1)').after( "<tr class='GPU" + (gpuCount + 1) + "'> <td class='text-left'>GPU</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel" + (gpuCount + 1) + "'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
     $(gpuCollection).each(function() {
         $('#gpusel' + (gpuCount + 1)).append($("<option>" + this.name + "</option>"))
     });
-
+    $('#gpusel2').change(function() {
+        myGPU2 = 0;
+        $(gpuCollection).each(function(){
+            if(this.name == $('#gpusel2 :selected').text()) {
+                myGPU2 = this;
+            }
+        });
+    });
+    $('#gpusel3').change(function() {
+        myGPU3 = 0;
+        $(gpuCollection).each(function(){
+            if(this.name == $('#gpusel3 :selected').text()) {
+                myGPU3 = this;
+            }
+        });
+    });
+    $('#gpusel4').change(function() {
+        myGPU4 = 0;
+        $(gpuCollection).each(function(){
+            if(this.name == $('#gpusel4 :selected').text()) {
+                myGPU4 = this;
+            }
+        });
+    });
 }
 var incomp = [];
 function CompComp() {
     var isincomp = 0;
     if (myCPU.socket !== myMotherboard.socket) {
-        incomp.push("Your CPU and Motherboard are incompatible");
+        incomp.push(" Your CPU and Motherboard are incompatible");
         isincomp += 1;
     }
     var casecomp = 0;
@@ -178,19 +177,50 @@ function CompComp() {
             casecomp += 1;
         }
     });
+    var gpuErrors1;
+    var gpuErrors2;
+    var gpuErrors3;
     var gpuComp1 = 1;
-    if(GPU2 !== "") {
-        if(myGPU1.brand == myGPU2.brand && myGPU1.series == myGPU2.series);
+    if(myGPU2 !== "") {
+        if(myGPU1.brand == myGPU2.brand && myGPU1.series == myGPU2.series && myGPU1.cardNumber == myGPU2.cardNumber) {
+            gpuComp1 = 1;
+            gpuErrors1 = " Crossfire or SLI configured properly"
+        }
+        else {
+            gpuComp1 = 0;
+            gpuErrors1 = " Looks like your two card don't match"
+        }
     }
-
+    else {
+        console.log("User only has one graphics card")
+    }
+    if(myGPU3 !== "") {
+        if(myGPU1.brand == myGPU3.brand && myGPU1.series == myGPU3.series && myGPU1.cardNumber == myGPU2.cardNumber) {
+            gpuErrors1 = "";
+            gpuErrors2 = " Trifire or Tri-SLI configured properly";
+        }
+        else {
+            gpuErrors2 = "Did you mean to add a third card that isn't compatible"
+        }
+    }
+    if(myGPU4 !== "") {
+        if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber) {
+            gpuErrors3 = "Quadfire or Quad-SLI configured properly";
+            gpuErrors2 = ""
+        }
+        else {
+            gpuErrors3 = "Did you mean to add a fourth card that doesn't match the ones before"
+        }
+    }
+    isincomp += (gpuErrors1 + gpuErrors3 + gpuErrors2);
     if (casecomp == 0) {
-        incomp.push(" Your Motherboard and Case are incompatible.");
+        incomp.push(" Your Motherboard and Case are incompatible");
         isincomp += 1;
     }
     if(isincomp == 0) {
-        incomp.push("Congratulations, everything is compatible");
+        incomp.push(" Congratulations, everything is compatible");
     }
-    document.getElementById("iscomp").innerHTML = incomp;
+    document.getElementById("iscomp").innerHTML = (incomp + ".");
 }
 function Reset() {
     incomp = [];

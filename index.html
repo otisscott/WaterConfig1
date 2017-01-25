@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="utf-8" />
+    <title>Table Style</title>
+    <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="scripts.js"></script>
+</head>
+
+<body onload="AppendThings()">
+
+<div class="table-title">
+    <h3>Computer Part List</h3>
+</div>
+<table class="table-fill">
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Item</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody class="table-hover">
+    <tr>
+        <td class="text-left">CPU</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="cpusel">
+                    <option>None</option>
+
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="cpupr"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Motherboard</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="mobosel">
+                    <option>None</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="mobopr"></td>
+    </tr>
+    <tr class="GPU1">
+        <td class="text-left">GPU</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="gpusel1">
+                    <option>None</option>
+                </select>
+            </span>
+
+        </td>
+        <td class="text-left" id="gpupr"></td>
+    </tr>
+    <tr>
+        <td class="text-left"></td>
+        <td class="text-left">
+            <button class="button" style=".small" onclick="addGPU()">Add GPU</button>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="text-left">Case</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="casesel">
+                    <option>None</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="casepr"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Is it compatible?</td>
+        <td class="text-left">
+            <span id="iscomp">
+            </span>
+        </td>
+        <td class="text-left"></td>
+    </tr>
+    </tbody>
+</table>
+<button class="button" onclick="CompComp()">Check Compatibility</button>
+<button class="button" onclick="Reset()">Reset</button>
+<div class="table-title">
+    <h3>Water Part List</h3>
+</div>
+<table class="table-fill">
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Item</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody class="table-hover">
+    <tr>
+        <td class="text-left">CPU Block</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="cpubsel">
+                    <option>None</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="cpubpr"></td>
+    </tr>
+    <tr>
+        <td class="text-left">GPU Block</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="gpubsel1">
+                    <option>None</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="gpubpr1"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Tubing</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="tubsel">
+                    <option>None</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="tubpr"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Fittings</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fitsel1">
+                    <option>None</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="fitpr1"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Pump</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumpsel">
+                    <option>None</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="pumppr"></td>
+    </tr><tr>
+        <td class="text-left">Reservoir</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="ressel1">
+                    <option>None</option>
+                </select>
+            </span></td>
+        <td class="text-left" id="respr1"></td>
+    </tr>
+    </tbody>
+</table>

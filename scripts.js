@@ -103,6 +103,9 @@ function AppendThings(){
             }
         });
     });
+    $(caseCollection).each(function() {
+        $('#casesel').append($("<option>" + this.name + "</option>"))
+    });
     $('#casesel').change(function() {
         myCase = 0;
         $(caseCollection).each(function(){
@@ -115,11 +118,7 @@ function AppendThings(){
 }
 var gpusel2ran = 0;
 var gpusel3ran = 0;
-var gpusel4ran = 0;
 function addGPU() {
-    $(caseCollection).each(function() {
-        $('#casesel').append($("<option>" + this.name + "</option>"))
-    });
     if($('#gpusel3 :selected').text() == "None" || $('#gpusel3 :selected').text() == myGPU3.name) {
         $('.GPU3').after( "<tr class='GPU4'> <td class='text-left'>GPU</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel4'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
         $('#addGPU').remove();
@@ -144,7 +143,8 @@ function addGPU() {
             }
         });
     });
-    if(gpusel3ran == 0) {
+    gpusel3ran += 1;
+    if(gpusel3ran == 2) {
         $(gpuCollection).each(function () {
             $('#gpusel3').append($("<option>" + this.name + "</option>"))
         });
@@ -157,11 +157,9 @@ function addGPU() {
             }
         });
     });
-    if(gpusel4ran == 0) {
-        $(gpuCollection).each(function () {
-            $('#gpusel4').append($("<option>" + this.name + "</option>"))
-        });
-    }
+    $(gpuCollection).each(function () {
+        $('#gpusel4').append($("<option>" + this.name + "</option>"))
+    });
     $('#gpusel4').change(function() {
         myGPU4 = 0;
         $(gpuCollection).each(function(){
@@ -185,11 +183,81 @@ function CompComp() {
             casecomp += 1;
         }
     });
-    var gpuComp1 = 1;
-    if(myGPU2 !== "") {
-        if(myGPU1.brand == myGPU2.brand && myGPU1.series == myGPU2.series);
+    var gpuslots = [myGPU1.slots, myGPU2.slots, myGPU3.slots, myGPU4.slots];
+    var slotstaken = 0;
+    for(var sl = 0; sl < gpuslots.length; sl++) {
+        if(typeof(gpuslots[sl]) === 'number') {
+            slotstaken += 2;
+        }
     }
-
+    var gpuComp1 = 0;
+    var gpuComp2 = 0;
+    if(myCase.slots < slotstaken) {
+        incomp.push("You have too many graphics card for your case which only has " + myCase.slots + " slots unless they are in a single slot configuration");
+        isincomp += 1;
+    }
+    else {
+        if(myGPU2 !== "") {
+            if(myGPU1.brand == myGPU2.brand && myGPU1.series == myGPU2.series && myGPU1.cardNumber == myGPU2.cardNumber) {
+                console.log("Crossfire or SLI configured properly");
+                gpuComp1 = 1;
+            }
+            else {
+                incomp.push(" Cards one and two are not Crossfire or SLI compatible")
+                isincomp += 1
+            }
+        }
+        if(myGPU3 !== "") {
+            if(myGPU1.brand == myGPU3.brand && myGPU1.series == myGPU3.series && myGPU1.cardNumber == myGPU3.cardNumber && gpuComp1 == 1) {
+                console.log("Wow, TriFire or Tri-SLI configured properly");
+                gpuComp2 = 4;
+            }
+            else if(myGPU1.brand == myGPU3.brand && myGPU1.series == myGPU3.series && myGPU1.cardNumber == myGPU3.cardNumber) {
+                incomp.push(" Cards one and three are configured correctly for SLI or Crossfire but card two doesn't match");
+                gpuComp2 = 3;
+                isincomp += 1
+            }
+            else if(myGPU2.brand == myGPU3.brand && myGPU2.series == myGPU3.series && myGPU2.cardNumber == myGPU3.cardNumber) {
+                incomp.push(" Cards two and three are configured correctly for SLI or Crossfire but card one doesn't match");
+                gpuComp2 = 2;
+                isincomp += 1
+            }
+            else {
+                incomp.push(" The third card added doesn't match the first two");
+                gpuComp2 = 1;
+                isincomp += 1
+            }
+        }
+        if(myGPU4 !== "") {
+            if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp1 == 1 && gpuComp2 == 4) {
+                console.log("Wow, QuadFire or Quad-SLI configured properly");
+            }
+            else if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 3) {
+                incomp.push( "TriFire or Tri-SLI configured properly but card two doesn't match");
+                isincomp += 1
+            }
+            else if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 2) {
+                incomp.push( "TriFire or Tri-SLI configured properly but card one doesn't match");
+                isincomp += 1
+            }
+            else if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 1) {
+                incomp.push( "TriFire or Tri-SLI configured properly but card third doesn't match");
+                isincomp += 1
+            }
+            else if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp1 == 0) {
+                incomp.push( "CrossFire or SLI configured properly but card two and three don't match");
+                isincomp += 1
+            }
+            else if(myGPU3.brand == myGPU4.brand && myGPU3.series == myGPU4.series && myGPU3.cardNumber == myGPU4.cardNumber && gpuComp1 == 0) {
+                incomp.push( "CrossFire or SLI configured properly but card one and two don't match");
+                isincomp += 1
+            }
+            else {
+                incomp.push(" The fourth card doesn't match the first three");
+                isincomp += 1
+            }
+        }
+    }
     if (casecomp == 0) {
         incomp.push(" Your Motherboard and Case are incompatible.");
         isincomp += 1;

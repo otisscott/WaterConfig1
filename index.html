@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>Table Style</title>
     <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="scripts.js"></script>
 </head>
 
@@ -88,7 +88,6 @@
     </tbody>
 </table>
 <button class="button" onclick="CompComp()">Check Compatibility</button>
-<button class="button" onclick="Reset()">Reset</button>
 <div class="table-title">
     <h3>Water Part List</h3>
 </div>
@@ -112,7 +111,7 @@
         </td>
         <td class="text-left" id="cpubpr"></td>
     </tr>
-    <tr>
+    <tr class="GPUB1">
         <td class="text-left">GPU Block</td>
         <td class="text-left">
             <span class="custom-dropdown custom-dropdown--white">
@@ -155,7 +154,19 @@
             </span>
         </td>
         <td class="text-left" id="pumppr"></td>
-    </tr><tr>
+    </tr>
+    <tr>
+        <td class="text-left">Pump Top</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumptopsel">
+                    <option>None</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="pumptoppr"></td>
+    </tr>
+    <tr>
         <td class="text-left">Reservoir</td>
         <td class="text-left">
             <span class="custom-dropdown custom-dropdown--white">
@@ -164,6 +175,26 @@
                 </select>
             </span></td>
         <td class="text-left" id="respr1"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Radiator</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="radsel">
+                    <option>None</option>
+                </select>
+            </span></td>
+        <td class="text-left" id="radpr"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Fans</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fansel">
+                    <option>None</option>
+                </select>
+            </span></td>
+        <td class="text-left" id="fanpr"></td>
     </tr>
     </tbody>
 </table>

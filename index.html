@@ -6,8 +6,17 @@
     <meta charset="utf-8" />
     <title>Table Style</title>
     <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="scripts.js"></script>
+    <script>(function(){
+        var customSelects = document.querySelectorAll(".custom-dropdown__select");
+        for(var i=0; i<customSelects.length; i++){
+            if (customSelects[i].hasAttribute("disabled")){
+                customSelects[i].parentNode.className += " custom-dropdown--disabled";
+            }
+        }
+    })()
+    </script>
 </head>
 
 <body onload="AppendThings()">
@@ -30,7 +39,6 @@
             <span class="custom-dropdown custom-dropdown--white">
                 <select class="custom-dropdown__select custom-dropdown__select--white" id="cpusel">
                     <option>None</option>
-
                 </select>
             </span>
         </td>
@@ -88,7 +96,6 @@
     </tbody>
 </table>
 <button class="button" onclick="CompComp()">Check Compatibility</button>
-<button class="button" onclick="Reset()">Reset</button>
 <div class="table-title">
     <h3>Water Part List</h3>
 </div>
@@ -112,7 +119,7 @@
         </td>
         <td class="text-left" id="cpubpr"></td>
     </tr>
-    <tr>
+    <tr class="GPUB1">
         <td class="text-left">GPU Block</td>
         <td class="text-left">
             <span class="custom-dropdown custom-dropdown--white">
@@ -142,6 +149,11 @@
                     <option>None</option>
                 </select>
             </span>
+            <span class="custom-dropdown custom-dropdown--white">
+                Quantity:
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fitnum1">
+                </select>
+            </span>
         </td>
         <td class="text-left" id="fitpr1"></td>
     </tr>
@@ -149,21 +161,99 @@
         <td class="text-left">Pump</td>
         <td class="text-left">
             <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumpsel">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumpsel1">
                     <option>None</option>
+                </select>
+            </span>
+            <span class="custom-dropdown custom-dropdown--white">
+                Quantity:
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumpnum1">
+                    <option>1</option>
+                    <option>2</option>
                 </select>
             </span>
         </td>
         <td class="text-left" id="pumppr"></td>
-    </tr><tr>
+    </tr>
+    <tr>
+        <td class="text-left">Pump Top</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumptopsel">
+                    <option>None</option>
+                </select>
+            </span>
+            <span class="custom-dropdown custom-dropdown--white">
+                Quantity:
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumptopnum">
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="pumptoppr"></td>
+    </tr>
+    <tr>
         <td class="text-left">Reservoir</td>
         <td class="text-left">
             <span class="custom-dropdown custom-dropdown--white">
                 <select class="custom-dropdown__select custom-dropdown__select--white" id="ressel1">
                     <option>None</option>
                 </select>
-            </span></td>
+            </span>
+            <span class="custom-dropdown custom-dropdown--white">
+                Quantity:
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="resnum1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </span>
+        </td>
         <td class="text-left" id="respr1"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Radiator</td>
+        <td class="text-left">
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="radsel1">
+                    <option>None</option>
+                </select>
+            </span>
+            <span class="custom-dropdown custom-dropdown--white">
+                Quantity:
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="radnum1">
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="radpr"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Fans</td>
+        <td>
+            <span class="custom-dropdown custom-dropdown--white text-left">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fansel1">
+                    <option>None</option>
+                </select>
+            </span>
+            <span class="custom-dropdown custom-dropdown--white text-right">
+                Quantity:
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fannum1">
+                </select>
+            </span>
+        </td>
+        <td class="text-left" id="fanpr"></td>
+    </tr>
+    <tr>
+        <td class="text-left">Is it compatible?</td>
+        <td class="text-left">
+            <span id="loopiscomp">
+            </span>
+        </td>
+        <td class="text-left"></td>
     </tr>
     </tbody>
 </table>
+<div>
+    <button class="button" onclick="LoopComp()">Check Compatibility</button>
+</div>

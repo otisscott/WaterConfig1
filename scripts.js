@@ -591,6 +591,9 @@ function LoopComp() {
             loopincomp.push(" Your second GPU Block is incompatible");
         }
     }
+    if (myGPU3 !== ""){
+
+    }
     if(loopcomp == 0) {
         loopincomp.push("Congratulations, everything is compatible");
     }

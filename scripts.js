@@ -17,10 +17,10 @@ var radCollection = [];
 var fanCollection = [];
 var myCPU;
 var myMotherboard;
-var myGPU1 = [];
-var myGPU2 = [];
-var myGPU3 = [];
-var myGPU4 = [];
+var myGPU1 = "";
+var myGPU2 = "";
+var myGPU3 = "";
+var myGPU4 = "";
 var myCase;
 var myCPUBlock;
 var myGPUBlock1 = "";
@@ -34,7 +34,6 @@ var myFitting3;
 var myFitting4;
 var myFitting5;
 var myPump;
-var myPump1
 var myPumpTop;
 var myReservoir;
 var myRad1;
@@ -306,7 +305,7 @@ function AppendThings() {
     $('#pumptopsel').change(function() {
         myPumpTop = "";
         $(pumptopCollection).each(function(){
-            if(this.name == $('#tubsel :selected').text()) {
+            if(this.name == $('#pumptopsel :selected').text()) {
                 myPumpTop = this;
             }
         });
@@ -439,7 +438,17 @@ function addGPU() {
         });
     });
 }
-
+function addRad() {
+    if($('#radsel3 :selected').text() == "None" || $('#radsel3 :selected').text() == myRad3.name) {
+        $('#rad3').after("<tr id='rad4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel4'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum4'> </select> </span> </td> <td class='text-left' id='radpr4'></td> </tr>")
+        $('#addRad').remove();
+    }
+    else if ($('#radsel2 :selected').text() == "None" || $('#radsel2 :selected').text() == myRad2.name) {
+        $('#rad2').after("<tr id='rad3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel3'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum3'> </select> </span> </td> <td class='text-left' id='radpr3'></td> </tr>")
+    }
+    else {
+        $('#rad1').after("<tr id='rad2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel2'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum2'> </select> </span> </td> <td class='text-left' id='radpr2'></td> </tr>")
+    }
 function CompComp() {
     var incomp = [];
     document.getElementById("iscomp").innerHTML = "";
@@ -570,6 +579,7 @@ function CompComp() {
 }
 var loopcomp = 0;
 var loopincomp = [];
+var fittingcount = 0;
 function LoopComp() {
     var cpublockcomp = 0;
     for(var l = 0; l < myCPUBlock.socket.length; l++) {
@@ -580,20 +590,63 @@ function LoopComp() {
     if(cpublockcomp !== 1) {
         loopcomp = 1;
         loopincomp.push(" Your CPU Block is incompatible");
+        fittingcount += 2;
+    }
+    else {
+        fittingcount += 2;
     }
     if (myGPU1.brand !== myGPUBlock1.brand || myGPU1.cardNumber !== myGPUBlock1.cardNumber || myGPU1.series !== myGPUBlock1.series || myGPU1.reference !== myGPUBlock1.reference || myGPU1.customCardType !== myGPUBlock1.customCardType || myGPU1.mod !== myGPUBlock1.mod) {
         loopcomp = 1;
         loopincomp.push(" Your first GPU Block is incompatible");
+        fittingcount += 2;
+    }
+    else {
+        fittingcount += 2;
     }
     if (myGPU2 !== "") {
         if (myGPU2.brand !== myGPUBlock2.brand || myGPU2.cardNumber !== myGPUBlock2.cardNumber || myGPU2.series !== myGPUBlock2.series || myGPU2.reference !== myGPUBlock2.reference || myGPU2.customCardType !== myGPUBlock2.customCardType || myGPU2.mod !== myGPUBlock2.mod) {
             loopcomp = 1;
             loopincomp.push(" Your second GPU Block is incompatible");
+            fittingcount += 2;
         }
+        else {
+            fittingcount += 2;
+        }
+    }
+    if (myGPU3 !== ""){
+        if (myGPU3.brand !== myGPUBlock3.brand || myGPU3.cardNumber !== myGPUBlock3.cardNumber || myGPU3.series !== myGPUBlock3.series || myGPU3.reference !== myGPUBlock3.reference || myGPU3.customCardType !== myGPUBlock3.customCardType || myGPU3.mod !== myGPUBlock3.mod) {
+            loopcomp = 1;
+            loopincomp.push(" Your third GPU Block is incompatible");
+            fittingcount += 2;
+        }
+        else {
+            fittingcount += 2;
+        }
+    }
+    if (myGPU4 !== ""){
+        if (myGPU4.brand !== myGPUBlock4.brand || myGPU4.cardNumber !== myGPUBlock4.cardNumber || myGPU4.series !== myGPUBlock4.series || myGPU4.reference !== myGPUBlock4.reference || myGPU4.customCardType !== myGPUBlock4.customCardType || myGPU4.mod !== myGPUBlock4.mod) {
+            loopcomp = 1;
+            loopincomp.push(" Your fourth GPU Block is incompatible");
+            fittingcount += 2;
+        }
+        else {
+            fittingcount += 2;
+        }
+    }
+    if (myPump.type !== myPumpTop.type) {
+        loopcomp = 1;
+        loopincomp.push(" Your pump-top is not compatible with your pump");
+        fittingcount += 2;
+    }
+    else {
+        fittingcount += 2;
     }
     if(loopcomp == 0) {
         loopincomp.push("Congratulations, everything is compatible");
     }
+    loopcomp = 0;
     document.getElementById("loopiscomp").innerHTML = loopincomp;
+    document.getElementById("fitcount").innerHTML = fittingcount;
     loopincomp = [];
+    fittingcount = 0;
 }

@@ -8,6 +8,7 @@ var gpuCollection = [];
 var caseCollection = [];
 var cpublockCollection =[];
 var gpublockCollection =[];
+var bridgeCollection = [];
 var tubingCollection = [];
 var fittingCollection = [];
 var pumpCollection = [];
@@ -28,23 +29,25 @@ var myGPUBlock2 = "";
 var myGPUBlock3 = "";
 var myGPUBlock4 = "";
 var myTubing;
-var myFitting1;
-var myFitting2;
-var myFitting3;
-var myFitting4;
-var myFitting5;
+var myFitting1 = "";
+var myFitting2 = "";
+var myFitting3 = "";
+var myFitting4 = "";
+var myFitting5 = "";
 var myPump;
-var myPumpTop;
-var myReservoir;
-var myRad1;
-var myRad2;
-var myRad3;
-var myRad4;
-var myFan1;
-var myFan2;
-var myFan3;
-var myFan4;
-var myFan5;
+var myPumpTop = "";
+var myReservoir = "";
+var myReservoir2 = "";
+var myRad1 = "";
+var myRad2 = "";
+var myRad3 = "";
+var myRad4 = "";
+var myFan1 = "";
+var myFan2 = "";
+var myFan3 = "";
+var myFan4 = "";
+var myFan5 = "";
+var myBridge = "";
 function CPU(frequency,cores,socket,name) {
     this.name = name;
     this.frequency = frequency;
@@ -76,13 +79,17 @@ function GPU(brand,series,desig,mod,comp,ref,cct,name) {
 
     gpuCollection.push(this);
  }
-function Case(num5,form,slots,fan120,fan80,name) {
+function Case(num5,form,slots,fan120,fan140,fan80,fan240,fan360,radtot,name) {
     this.name = name;
     this.num5 = num5;
     this.form = form;
     this.slots = slots;
     this.fan120 = fan120;
+    this.fan140 = fan140;
     this.fan80 = fan80;
+    this.fan240 = fan240;
+    this.fan360 = fan360;
+    this.radtot = radtot;
 
     caseCollection.push(this);
 }
@@ -164,15 +171,23 @@ function Fans(size,pin,name) {
 
     fanCollection.push(this);
 }
+function Bridge(numcards,threads,sp,name) {
+    this.numcards = numcards;
+    this.threads = threads;
+    this.sp = sp; //is it serial or parallel
+    this.name = name;
+
+    bridgeCollection.push(this);
+}
 //Stock objects for testing reasons
 
 var i75930k = new CPU(3.6, 6, 2011.3, "i7 5930k");
 var gigabytex99mgaming5 = new Motherboard(2011.3, "mATX", 3, 1, 4, "Gigabyte X99m Gaming5");
-var parvums2extended = new Case(0, ["mATX"], 4, 5, 3, "Parvum S2.0 Extended");
+var parvums2extended = new Case(0, ["mATX"], 4, 5, 0, 3, 1, 1, 2, "Parvum S2.0 Extended");
 var msir9290 = new GPU("amd",2,90,0,"msi",1,0, "MSI R9 290 Reference");
 var i54690k = new CPU(3.6, 4, 1150, "i5 4960k");
 var asusmaximusviihero = new Motherboard(1150, "ATX", 2, 1, 6, "Asus Maxiums VII Hero");
-var nzxtphantom410 = new Case(2, ["ATX", "mATX", "mITX"], 7, 8, 0, "NZXT Phantom 410");
+var nzxtphantom410 = new Case(2, ["ATX", "mATX", "mITX"], 7, 8, 0, 0, 2, 0, 2, "NZXT Phantom 410");
 var evgagtx970acx20 = new GPU("nvidia", 9, 70, "", "EVGA", 0, "ACX2.0", "EVGA GTX970 ACX2.0");
 var eksupremacyevo = new CPUBlock([1150,2011.3,2011,1151,1155,"AM3+","AM3","FM2","FM2+"],"G1/4","copper","EK Supremacy EVO Copper");
 var ekfcr9290ref = new GPUBlock("amd",2,90,0,"msi",1,0,"EK FC AMD R9 290 Reference", "nickel-acetal","G1/4");
@@ -189,8 +204,11 @@ var koolancerp452x2 = new Reservoir("bay",2,0,"G1/4",2,"Koolance RP452X2");
 var blackicenemesisstealth240 = new Rad(240,28,"G1/4","copper","Black Ice Nemesis Stealth 240mm");
 var blackicenemesisstealth260 = new Rad(360,28,"G1/4","copper","Black Ice Nemesis Stealth 360mm");
 var gentletyphoonap15120mm = new Fans(120,3,"Gentle Typhoon AP15 120mm");
-var caselabssma8 = new Case(13,["ATX","mATX","EATX","mITX"],8,17,0,"CaseLabs SMA8 EATX");
-var msix99xpower = new Motherboard(2011.3,"EATX",5,1,7,"MSI X99 XPOWER")
+var caselabssma8 = new Case(13,["ATX","mATX","EATX","mITX"],8,17, 0, 0, 6, 4, 8,   "CaseLabs SMA8 EATX");
+var msix99xpower = new Motherboard(2011.3,"EATX",5,1,7,"MSI X99 XPOWER");
+var ek3bridge = new Bridge(3, "G1/4", "serial", "EK 3 Card Bridge (Serial)");
+var ek2bridge = new Bridge(2, "G1/4", "parallel", "EK 2 Card Bridge (Parallel)");
+var ek4bridge = new Bridge(4, "G1/4", "serial", "EK 4 Card Bridge (Serial)");
 
 function AppendThings() {
     $(cpuCollection).each(function() {
@@ -295,7 +313,7 @@ function AppendThings() {
         myPump = "";
         $(pumpCollection).each(function(){
             if(this.name == $('#pumpsel1 :selected').text()) {
-                myPump += this;
+                myPump = this;
             }
         });
     });
@@ -325,10 +343,10 @@ function AppendThings() {
         $('#radsel1').append($("<option>" + this.name + "</option>"))
     });
     $('#radsel1').change(function() {
-        myRad1 = [];
+        myRad1 = "";
         $(radCollection).each(function(){
             if(this.name == $('#radsel1 :selected').text()) {
-                myRad1 += this;
+                myRad1 = this;
             }
         });
     });
@@ -364,6 +382,7 @@ function addGPU() {
     else {
         $('.GPU1').after( "<tr class='GPU2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel2'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
         $('.GPUB1').after( "<tr class='GPUB2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpubsel2'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
+        $('.GPUB2').after("<tr> <td class='text-left'>GPU Bridge</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'><select class='custom-dropdown__select custom-dropdown__select--white' id='bridgesel'> <option>None</option> </select> </span> </td> <td class='text-left' id='bridgepr'></td></tr>");
     }
     if(gpusel2ran == 0) {
         $(gpuCollection).each(function () {
@@ -372,8 +391,26 @@ function addGPU() {
         $(gpublockCollection).each(function() {
             $('#gpubsel2').append($("<option>" + this.name + "</option>"))
         });
+        $(bridgeCollection).each(function() {
+            $('#bridgesel').append($("<option>" + this.name + "</option>"))
+        });
         gpusel2ran = 1;
     }
+    gpusel3ran += 1;
+    if(gpusel3ran == 2) {
+        $(gpuCollection).each(function () {
+            $('#gpusel3').append($("<option>" + this.name + "</option>"))
+        });
+        $(gpublockCollection).each(function() {
+            $('#gpubsel3').append($("<option>" + this.name + "</option>"))
+        });
+    }
+    $(gpuCollection).each(function () {
+        $('#gpusel4').append($("<option>" + this.name + "</option>"))
+    });
+    $(gpublockCollection).each(function() {
+        $('#gpubsel4').append($("<option>" + this.name + "</option>"))
+    });
     $('#gpusel2').change(function() {
         myGPU2 = "";
         $(gpuCollection).each(function(){
@@ -390,15 +427,6 @@ function addGPU() {
             }
         });
     });
-    gpusel3ran += 1;
-    if(gpusel3ran == 2) {
-        $(gpuCollection).each(function () {
-            $('#gpusel3').append($("<option>" + this.name + "</option>"))
-        });
-        $(gpublockCollection).each(function() {
-            $('#gpubsel3').append($("<option>" + this.name + "</option>"))
-        });
-    }
     $('#gpusel3').change(function() {
         myGPU3 = 0;
         $(gpuCollection).each(function(){
@@ -409,17 +437,11 @@ function addGPU() {
     });
     $('#gpubsel3').change(function() {
         myGPUBlock3 = 0;
-        $(gpublockCollection).each(function(){
-            if(this.name == $('#gpubsel3 :selected').text()) {
+        $(gpublockCollection).each(function () {
+            if (this.name == $('#gpubsel3 :selected').text()) {
                 myGPUBlock3 = this;
             }
         });
-    });
-    $(gpuCollection).each(function () {
-        $('#gpusel4').append($("<option>" + this.name + "</option>"))
-    });
-    $(gpublockCollection).each(function() {
-        $('#gpubsel4').append($("<option>" + this.name + "</option>"))
     });
     $('#gpusel4').change(function() {
         myGPU4 = 0;
@@ -437,9 +459,38 @@ function addGPU() {
             }
         });
     });
+    $('#bridgesel').change(function() {
+        myBridge = "";
+        $(bridgeCollection).each(function(){
+            if(this.name == $('#bridgesel :selected').text()) {
+                myBridge = this;
+            }
+        });
+    });
 }
+function addRes() {
+    $('#res1').after("<tr id='res2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='ressel2'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='resnum2'> </select> </span> </td> <td class='text-left' id='radpr2'></td> </tr>")
+    $(reservoirCollection).each(function() {
+        $('#ressel2').append($("<option>" + this.name + "</option>"))
+    });
+    $('#ressel2').change(function() {
+        myReservoir2 = "";
+        $(reservoirCollection).each(function(){
+            if(this.name == $('#ressel2 :selected').text()) {
+                myReservoir2 += this;
+            }
+        });
+    });
+    for(var i = 1; i < 4; i++) {
+        $('#resnum2').append($("<option>" + i + "</option>"))
+    }
+    $('#addRes').remove();
+
+}
+var radsel2ran = 0;
+var radsel3ran = 0;
 function addRad() {
-    if($('#radsel3 :selected').text() == "None" || $('#radsel3 :selected').text() == myRad3.name) {
+    if ($('#radsel3 :selected').text() == "None" || $('#radsel3 :selected').text() == myRad3.name) {
         $('#rad3').after("<tr id='rad4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel4'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum4'> </select> </span> </td> <td class='text-left' id='radpr4'></td> </tr>")
         $('#addRad').remove();
     }
@@ -449,6 +500,139 @@ function addRad() {
     else {
         $('#rad1').after("<tr id='rad2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel2'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum2'> </select> </span> </td> <td class='text-left' id='radpr2'></td> </tr>")
     }
+    if(radsel2ran == 0) {
+        $(radCollection).each(function() {
+            $('#radsel2').append($("<option>" + this.name + "</option>"))
+        });
+        radsel2ran = 1;
+    }
+    radsel3ran += 1;
+    if(radsel3ran == 2) {
+        $(radCollection).each(function() {
+            $('#radsel3').append($("<option>" + this.name + "</option>"))
+        });
+    }
+    $(radCollection).each(function() {
+        $('#radsel4').append($("<option>" + this.name + "</option>"))
+    });
+    $('#radsel4').change(function() {
+        myRad4 = "";
+        $(radCollection).each(function(){
+            if(this.name == $('#radsel4 :selected').text()) {
+                myRad4 = this;
+            }
+        });
+    });
+    $('#radsel3').change(function() {
+        myRad3 = "";
+        $(radCollection).each(function(){
+            if(this.name == $('#radsel3 :selected').text()) {
+                myRad3 = this;
+            }
+        });
+    });
+    $('#radsel2').change(function() {
+        myRad2 = "";
+        $(radCollection).each(function(){
+            if(this.name == $('#radsel2 :selected').text()) {
+                myRad2 = this;
+            }
+        });
+    });
+    for(var j = 1; j < 11; j++) {
+        $('#radnum2').append($("<option>" + j + "</option>"))
+    }
+    for(var k = 1; k < 11; k++) {
+        $('#radnum3').append($("<option>" + k + "</option>"))
+    }
+    for(var l = 1; l < 11; l++) {
+        $('#radnum4').append($("<option>" + l + "</option>"))
+    }
+}
+var fansel2ran = 0;
+var fansel3ran = 0;
+var fansel4ran = 0;
+var fansel5ran = 0;
+function addFan() {
+    if ($('#fansel4 :selected').text() == "None" || $('#fansel4 :selected').text() == myFan4.name) {
+        $('#fan4').after("<tr id='fan5'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel5'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum5'> </select> </span> </td> <td class='text-left' id='fanpr5'></td> </tr>");
+        $('#addFan').remove();
+    }
+    else if ($('#fansel3 :selected').text() == "None" || $('#fansel3 :selected').text() == myFan3.name) {
+        $('#fan3').after("<tr id='fan4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel4'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum4'> </select> </span> </td> <td class='text-left' id='fanpr4'></td> </tr>");
+    }
+    else if ($('#fansel2 :selected').text() == "None" || $('#fansel2 :selected').text() == myFan2.name) {
+        $('#fan2').after("<tr id='fan3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel3'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum3'> </select> </span> </td> <td class='text-left' id='fanpr3'></td> </tr>");
+    }
+    else {
+        $('#fan1').after("<tr id='fan2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel2'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum2'> </select> </span> </td> <td class='text-left' id='fanpr2'></td> </tr>");
+    }
+    if(fansel2ran == 0) {
+        $(fanCollection).each(function() {
+            $('#fansel2').append($("<option>" + this.name + "</option>"))
+        });
+        for(var j = 1; j < 51; j++) {
+            $('#fannum2').append($("<option>" + j + "</option>"))
+        }
+        fansel2ran = 1;
+    }
+    fansel3ran += 1;
+    fansel4ran += 1;
+    if(fansel3ran == 2) {
+        $(fanCollection).each(function() {
+            $('#fansel3').append($("<option>" + this.name + "</option>"))
+        });
+        for(var k = 1; k < 51; k++) {
+            $('#fannum3').append($("<option>" + k + "</option>"))
+        }
+    }
+    if(fansel4ran == 3) {
+        $(fanCollection).each(function() {
+            $('#fansel4').append($("<option>" + this.name + "</option>"))
+        });
+        for(var l = 1; l < 51; l++) {
+            $('#fannum4').append($("<option>" + l + "</option>"))
+        }
+    }
+    $(fanCollection).each(function() {
+        $('#fansel5').append($("<option>" + this.name + "</option>"))
+    });
+    for(var m = 1; m < 51; m++) {
+        $('#fannum5').append($("<option>" + m + "</option>"))
+    }
+    $('#fansel5').change(function() {
+        myFad5 = [];
+        $(fanCollection).each(function(){
+            if(this.name == $('#fansel5 :selected').text()) {
+                myFan5 += this;
+            }
+        });
+    });
+    $('#fansel4').change(function() {
+        myFan4 = [];
+        $(fanCollection).each(function(){
+            if(this.name == $('#fansel4 :selected').text()) {
+                myFan4 += this;
+            }
+        });
+    });
+    $('#fansel3').change(function() {
+        myFan3 = [];
+        $(FanCollection).each(function(){
+            if(this.name == $('#fansel3 :selected').text()) {
+                myFan3 += this;
+            }
+        });
+    });
+    $('#fansel2').change(function() {
+        myFan2 = [];
+        $(fanCollection).each(function(){
+            if(this.name == $('#fansel2 :selected').text()) {
+                myFan2 += this;
+            }
+        });
+    });
+}
 function CompComp() {
     var incomp = [];
     document.getElementById("iscomp").innerHTML = "";
@@ -459,26 +643,26 @@ function CompComp() {
     }
     var casecomp = 0;
     var formcount = myCase.form;
-    $(formcount).each(function() {
-        if(this == myMotherboard.form) {
+    $(formcount).each(function () {
+        if (this == myMotherboard.form) {
             casecomp += 1;
         }
     });
     var gpuslots = [myGPU1.slots, myGPU2.slots, myGPU3.slots, myGPU4.slots];
     var slotstaken = 0;
-    for(var sl = 0; sl < gpuslots.length; sl++) {
-        if(typeof(gpuslots[sl]) === 'number') {
+    for (var sl = 0; sl < gpuslots.length; sl++) {
+        if (typeof(gpuslots[sl]) === 'number') {
             slotstaken += 2;
         }
     }
     var gpuComp1 = 0;
     var gpuComp2 = 0;
-    if(myMotherboard.slots16x < (slotstaken/2)) {
-        if(((slotstaken/2)-myMotherboard.slots16x) == 1) {
+    if (myMotherboard.slots16x < (slotstaken / 2)) {
+        if (((slotstaken / 2) - myMotherboard.slots16x) == 1) {
             incomp.push("Your motherboard doesn't have enough PCI-E x16 slots to hold all of your graphics cards remove 1 graphics card")
             isincomp += 1;
         }
-        else if (((slotstaken/2)-myMotherboard.slots16x) == 2) {
+        else if (((slotstaken / 2) - myMotherboard.slots16x) == 2) {
             incomp.push("Your motherboard doesn't have enough PCI-E x16 slots to hold all of your graphics cards remove 2 graphics cards")
             isincomp += 1;
         }
@@ -487,17 +671,17 @@ function CompComp() {
             isincomp += 1;
         }
     }
-    if(myCase.slots < slotstaken) {
+    if (myCase.slots < slotstaken) {
         incomp.push(" You have too many graphics card for your case which only has " + myCase.slots + " slots unless they are in a single slot configuration");
         isincomp += 1;
     }
     else {
-        if(myGPU2 !== "") {
-            if(myGPU2 == 0 || myGPU2 == "") {
+        if (myGPU2 !== "") {
+            if (myGPU2 == 0 || myGPU2 == "") {
                 console.log("User hasn't selected a second card yet")
             }
             else {
-                if(myGPU1.brand == myGPU2.brand && myGPU1.series == myGPU2.series && myGPU1.cardNumber == myGPU2.cardNumber) {
+                if (myGPU1.brand == myGPU2.brand && myGPU1.series == myGPU2.series && myGPU1.cardNumber == myGPU2.cardNumber) {
                     console.log("Crossfire or SLI configured properly");
                     gpuComp1 = 1;
                 }
@@ -507,21 +691,21 @@ function CompComp() {
                 }
             }
         }
-        if(myGPU3 !== "") {
-            if(myGPU3 == 0 || myGPU3 == "") {
+        if (myGPU3 !== "") {
+            if (myGPU3 == 0 || myGPU3 == "") {
                 console.log("User hasn't selected a third card yet")
             }
             else {
-                if(myGPU1.brand == myGPU3.brand && myGPU1.series == myGPU3.series && myGPU1.cardNumber == myGPU3.cardNumber && gpuComp1 == 1) {
+                if (myGPU1.brand == myGPU3.brand && myGPU1.series == myGPU3.series && myGPU1.cardNumber == myGPU3.cardNumber && gpuComp1 == 1) {
                     console.log("Wow, TriFire or Tri-SLI configured properly");
                     gpuComp2 = 4;
                 }
-                else if(myGPU1.brand == myGPU3.brand && myGPU1.series == myGPU3.series && myGPU1.cardNumber == myGPU3.cardNumber) {
+                else if (myGPU1.brand == myGPU3.brand && myGPU1.series == myGPU3.series && myGPU1.cardNumber == myGPU3.cardNumber) {
                     incomp.push(" Cards one and three are configured correctly for SLI or Crossfire but card two doesn't match");
                     gpuComp2 = 3;
                     isincomp += 1
                 }
-                else if(myGPU2.brand == myGPU3.brand && myGPU2.series == myGPU3.series && myGPU2.cardNumber == myGPU3.cardNumber) {
+                else if (myGPU2.brand == myGPU3.brand && myGPU2.series == myGPU3.series && myGPU2.cardNumber == myGPU3.cardNumber) {
                     incomp.push(" Cards two and three are configured correctly for SLI or Crossfire but card one doesn't match");
                     gpuComp2 = 2;
                     isincomp += 1
@@ -533,31 +717,31 @@ function CompComp() {
                 }
             }
         }
-        if(myGPU4 !== "") {
-            if(myGPU4 == 0 || myGPU4 == "") {
+        if (myGPU4 !== "") {
+            if (myGPU4 == 0 || myGPU4 == "") {
                 console.log("User hasn't selected a fourth card yet")
             }
             else {
-                if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp1 == 1 && gpuComp2 == 4) {
+                if (myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp1 == 1 && gpuComp2 == 4) {
                     console.log("Wow, QuadFire or Quad-SLI configured properly");
                 }
-                else if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 3) {
-                    incomp.push( "TriFire or Tri-SLI configured properly but card two doesn't match");
+                else if (myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 3) {
+                    incomp.push("TriFire or Tri-SLI configured properly but card two doesn't match");
                     isincomp += 1
                 }
-                else if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 2) {
+                else if (myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 2) {
                     incomp.push(" TriFire or Tri-SLI configured properly but card one doesn't match");
                     isincomp += 1
                 }
-                else if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 1) {
-                    incomp.push( "TriFire or Tri-SLI configured properly but card third doesn't match");
+                else if (myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp2 == 1) {
+                    incomp.push("TriFire or Tri-SLI configured properly but card third doesn't match");
                     isincomp += 1
                 }
-                else if(myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp1 == 0) {
+                else if (myGPU1.brand == myGPU4.brand && myGPU1.series == myGPU4.series && myGPU1.cardNumber == myGPU4.cardNumber && gpuComp1 == 0) {
                     incomp.push(" CrossFire or SLI configured properly but card two and three don't match");
                     isincomp += 1
                 }
-                else if(myGPU3.brand == myGPU4.brand && myGPU3.series == myGPU4.series && myGPU3.cardNumber == myGPU4.cardNumber && gpuComp1 == 0) {
+                else if (myGPU3.brand == myGPU4.brand && myGPU3.series == myGPU4.series && myGPU3.cardNumber == myGPU4.cardNumber && gpuComp1 == 0) {
                     incomp.push(" CrossFire or SLI configured properly but card one and two don't match");
                     isincomp += 1
                 }
@@ -572,7 +756,7 @@ function CompComp() {
         incomp.push(" Your Motherboard and Case are incompatible.");
         isincomp += 1;
     }
-    if(isincomp == 0) {
+    if (isincomp == 0) {
         incomp.push("Congratulations, everything is compatible");
     }
     document.getElementById("iscomp").innerHTML = incomp;
@@ -580,14 +764,18 @@ function CompComp() {
 var loopcomp = 0;
 var loopincomp = [];
 var fittingcount = 0;
+var gpucount = 0;
+var fan120 = 0;
+var fan140 = 0;
+var fan80 = 0;
 function LoopComp() {
     var cpublockcomp = 0;
-    for(var l = 0; l < myCPUBlock.socket.length; l++) {
+    for (var l = 0; l < myCPUBlock.socket.length; l++) {
         if (myCPU.socket == myCPUBlock.socket[l] && myMotherboard.socket == myCPUBlock.socket[l]) {
             cpublockcomp = 1;
         }
     }
-    if(cpublockcomp !== 1) {
+    if (cpublockcomp !== 1) {
         loopcomp = 1;
         loopincomp.push(" Your CPU Block is incompatible");
         fittingcount += 2;
@@ -598,55 +786,250 @@ function LoopComp() {
     if (myGPU1.brand !== myGPUBlock1.brand || myGPU1.cardNumber !== myGPUBlock1.cardNumber || myGPU1.series !== myGPUBlock1.series || myGPU1.reference !== myGPUBlock1.reference || myGPU1.customCardType !== myGPUBlock1.customCardType || myGPU1.mod !== myGPUBlock1.mod) {
         loopcomp = 1;
         loopincomp.push(" Your first GPU Block is incompatible");
-        fittingcount += 2;
+        if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
+        }
+        else {
+            fittingcount += 2;
+        }
+    }
+    else if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
+        gpucount += 1;
     }
     else {
+        gpucount += 1;
         fittingcount += 2;
     }
     if (myGPU2 !== "") {
         if (myGPU2.brand !== myGPUBlock2.brand || myGPU2.cardNumber !== myGPUBlock2.cardNumber || myGPU2.series !== myGPUBlock2.series || myGPU2.reference !== myGPUBlock2.reference || myGPU2.customCardType !== myGPUBlock2.customCardType || myGPU2.mod !== myGPUBlock2.mod) {
             loopcomp = 1;
             loopincomp.push(" Your second GPU Block is incompatible");
-            fittingcount += 2;
+            if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
+            }
+            else {
+                fittingcount += 2;
+            }
+        }
+        else if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
+            gpucount += 1;
         }
         else {
+            gpucount += 1;
             fittingcount += 2;
         }
     }
-    if (myGPU3 !== ""){
+    if (myGPU3 !== "") {
         if (myGPU3.brand !== myGPUBlock3.brand || myGPU3.cardNumber !== myGPUBlock3.cardNumber || myGPU3.series !== myGPUBlock3.series || myGPU3.reference !== myGPUBlock3.reference || myGPU3.customCardType !== myGPUBlock3.customCardType || myGPU3.mod !== myGPUBlock3.mod) {
             loopcomp = 1;
             loopincomp.push(" Your third GPU Block is incompatible");
-            fittingcount += 2;
+            if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
+            }
+            else {
+                fittingcount += 2;
+            }
+        }
+        else if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
+            gpucount += 1;
         }
         else {
+            gpucount += 1;
             fittingcount += 2;
         }
     }
-    if (myGPU4 !== ""){
+    if (myGPU4 !== "") {
         if (myGPU4.brand !== myGPUBlock4.brand || myGPU4.cardNumber !== myGPUBlock4.cardNumber || myGPU4.series !== myGPUBlock4.series || myGPU4.reference !== myGPUBlock4.reference || myGPU4.customCardType !== myGPUBlock4.customCardType || myGPU4.mod !== myGPUBlock4.mod) {
             loopcomp = 1;
             loopincomp.push(" Your fourth GPU Block is incompatible");
-            fittingcount += 2;
+            if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
+            }
+            else {
+                fittingcount += 2;
+            }
+        }
+        else if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
+            gpucount += 1;
         }
         else {
+            gpucount += 1;
             fittingcount += 2;
         }
     }
-    if (myPump.type !== myPumpTop.type) {
-        loopcomp = 1;
-        loopincomp.push(" Your pump-top is not compatible with your pump");
+    if(myBridge.name == "None" || myBridge.name == $('#bridgesel :selected').text()) {
         fittingcount += 2;
+        if(myBridge.numcards !== gpucount) {
+            loopincomp.push(" Your bridge size and number of cards don't match")
+            loopcomp = 1;
+        }
+    }
+    var pumpcount = $('#pumpnum1 :selected').text();
+    if(myPumpTop == "" || myPumpTop.name == undefined || myPumpTop.name == "None") {
+        if(myPumpTop == "") {
+            fittingcount += (2 * pumpcount);
+        }
+        else {
+            fittingcount += (2 * $('#pumptopnum :selected').text());
+        }
     }
     else {
-        fittingcount += 2;
+        if($('#pumptopnum :selected').text() !== pumpcount) {
+            loopcomp = 1;
+            loopincomp.push(" The number of Pumps doesn't match the number of Pump Tops")
+        }
+        else if(myPump.type !== myPumpTop.type) {
+            loopcomp = 1;
+            loopincomp.push(" Your pump-top is not compatible with your pump");
+            fittingcount += (2 * $('#pumptopnum :selected').text());
+        }
+        else {
+            fittingcount += (2 * $('#pumptopnum :selected').text());
+        }
     }
-    if(loopcomp == 0) {
-        loopincomp.push("Congratulations, everything is compatible");
+    if(myReservoir.name == $("#ressel1 :selected").text()) {
+        fittingcount += (2 * $("#resnum1 :selected").text());
+    }
+    if(myReservoir2 !== "" && myReservoir2.name !== "None") {
+        if(myReservoir2.name == $("#ressel2 :selected").text()) {
+            fittingcount += (2 * $("#resnum2 :selected").text());
+        }
+    }
+    if(myFan1.size == 120) {
+        fan120 += $('#fannum1 :selected').text();
+    }
+    else if(myFan1.size == 140) {
+        fan140 += $('#fannum1 :selected').text();
+    }
+    else {
+        fan80 += $('#fannum1 :selected').text();
+    }
+    if(myFan2.size == 120) {
+        fan120 += $('#fannum2 :selected').text();
+    }
+    else if(myFan2.size == 140) {
+        fan140 += $('#fannum2 :selected').text();
+    }
+    else {
+        fan80 += $('#fannum2 :selected').text();
+    }
+    if(myFan3.size == 120) {
+        fan120 += $('#fannum3 :selected').text();
+    }
+    else if(myFan3.size == 140) {
+        fan140 += $('#fannum3 :selected').text();
+    }
+    else {
+        fan80 += $('#fannum3 :selected').text();
+    }
+    if(myFan4.size == 120) {
+        fan120 += $('#fannum4 :selected').text();
+    }
+    else if(myFan4.size == 140) {
+        fan140 += $('#fannum4 :selected').text();
+    }
+    else {
+        fan80 += $('#fannum4 :selected').text();
+    }
+    if(myFan5.size == 120) {
+        fan120 += $('#fannum5 :selected').text();
+    }
+    else if(myFan5.size == 140) {
+        fan140 += $('#fannum5 :selected').text();
+    }
+    else {
+        fan80 += $('#fannum5 :selected').text();
+    }
+    if(fan120 > myCase.fan120) {
+        loopcomp = 1;
+        loopincomp.push(" You have too many 120mm fans for your case")
+    }
+    if(fan140 > myCase.fan140) {
+        loopcomp = 1;
+        loopincomp.push(" You have too many 140mm fans for your case")
+    }
+    if(fan80 > myCase.fan80) {
+        loopcomp = 1;
+        loopincomp.push(" You have too many 80mm fans for your case")
+    }
+    var rad360 = 0;
+    var rad240 = 0;
+    var rad120 = 0;
+    if(myRad1 !== "" && myRad1.name !== "None") {
+        if(myRad1.size == 360) {
+            rad360 += (1 * $("#radnum1 :selected").text());
+        }
+        else if(myRad1.size == 240) {
+            rad240 += (1 * $("#radnum1 :selected").text());
+        }
+        else {
+            rad120 += (1 * $("#radnum1 :selected").text());
+        }
+    }
+    if(myRad2 !== "" && myRad2.name !== "None") {
+        if(myRad2.size == 360) {
+            rad360 += (1 * $("#radnum2 :selected").text());
+        }
+        else if(myRad2.size == 240) {
+            rad240 += (1 * $("#radnum2 :selected").text());
+        }
+        else {
+            rad120 += (1 * $("#radnum2 :selected").text());
+        }
+    }
+    if(myRad3 !== "" && myRad3.name !== "None") {
+        if(myRad3.size == 360) {
+            rad360 += (1 * $("#radnum3 :selected").text());
+        }
+        else if(myRad3.size == 240) {
+            rad240 += (1 * $("#radnum3 :selected").text());
+        }
+        else {
+            rad120 += (1 * $("#radnum3 :selected").text());
+        }
+    }
+    if(myRad4 !== "" && myRad4.name !== "None") {
+        if(myRad4.size == 360) {
+            rad360 += (1 * $("#radnum4 :selected").text());
+        }
+        else if(myRad4.size == 240) {
+            rad240 += (1 * $("#radnum4 :selected").text());
+        }
+        else {
+            rad120 += (1 * $("#radnum4 :selected").text());
+        }
+    }
+    fittingcount += ($("#radnum1 :selected").text() * 2);
+    fittingcount += ($("#radnum2 :selected").text() * 2);
+    fittingcount += ($("#radnum3 :selected").text() * 2);
+    fittingcount += ($("#radnum4 :selected").text() * 2);
+    if((rad120 + rad240 + rad360) > myCase.radtot) {
+        loopcomp = 1;
+        loopincomp += " You have too many radiators for your case"
+    }
+    else {
+        if (rad360 > myCase.fan360) {
+            loopcomp = 1;
+            loopincomp += " You have too many 360mm radiators"
+        }
+        if (rad240 > myCase.fan240) {
+            loopcomp = 1;
+            loopincomp += " You have too many 240mm radiators"
+        }
+        if (rad120 > myCase.fan120) {
+            loopcomp = 1;
+            loopincomp += " You have too many 120mm radiators"
+        }
+        if (loopcomp == 0) {
+            loopincomp.push("Congratulations, everything is compatible");
+        }
     }
     loopcomp = 0;
     document.getElementById("loopiscomp").innerHTML = loopincomp;
     document.getElementById("fitcount").innerHTML = fittingcount;
     loopincomp = [];
     fittingcount = 0;
+    gpucount = 0;
+    fan120 = 0;
+    fan140 = 0;
+    fan80 = 0;
+    rad120 = 0;
+    rad240 = 0;
+    rad360 = 0;
 }

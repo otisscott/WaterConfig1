@@ -372,17 +372,17 @@ var gpusel2ran = 0;
 var gpusel3ran = 0;
 function addGPU() {
     if($('#gpusel3 :selected').text() == "None" || $('#gpusel3 :selected').text() == myGPU3.name) {
-        $('.GPU3').after( "<tr class='GPU4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel4'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
-        $('.GPUB3').after( "<tr class='GPUB4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpubsel4'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
+        $('.GPU3').after( "<tr class='GPU4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel4' style = 'width: 400px;'> <option>None</option> </select> </span> <button class='button' style='.small' onclick='removeGPU4()'>Remove</button> </td> <td class='text-left' id='gpupr'></td></tr>" );
+        $('.GPUB3').after( "<tr class='GPUB4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpubsel4' style = 'width: 400px;'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
         $('#addGPU').remove();
     }
     else if($('#gpusel2 :selected').text() == "None" || $('#gpusel2 :selected').text() == myGPU2.name) {
-        $('.GPU2').after( "<tr class='GPU3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel3'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
-        $('.GPUB2').after( "<tr class='GPUB3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpubsel3'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );}
+        $('.GPU2').after( "<tr class='GPU3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel3' style = 'width: 400px;'> <option>None</option> </select> </span> <button class='button' style='.small' onclick='removeGPU3()'>Remove</button> </td> <td class='text-left' id='gpupr'></td></tr>" );
+        $('.GPUB2').after( "<tr class='GPUB3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpubsel3' style = 'width: 400px;'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );}
     else {
-        $('.GPU1').after( "<tr class='GPU2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel2'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
-        $('.GPUB1').after( "<tr class='GPUB2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpubsel2'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
-        $('.GPUB2').after("<tr> <td class='text-left'>GPU Bridge</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'><select class='custom-dropdown__select custom-dropdown__select--white' id='bridgesel'> <option>None</option> </select> </span> </td> <td class='text-left' id='bridgepr'></td></tr>");
+        $('.GPU1').after( "<tr class='GPU2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel2' style = 'width: 400px;'> <option>None</option> </select> </span> <button class='button' style='.small' onclick='removeGPU2()'>Remove</button> </td> <td class='text-left' id='gpupr'></td></tr>" );
+        $('.GPUB1').after( "<tr class='GPUB2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpubsel2' style = 'width: 400px;'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
+        $('.GPUB2').after("<tr> <td class='text-left'>GPU Bridge</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'><select class='custom-dropdown__select custom-dropdown__select--white' id='bridgesel' style = 'width: 400px;'> <option>None</option> </select> </span> </td> <td class='text-left' id='bridgepr'></td></tr>");
     }
     if(gpusel2ran == 0) {
         $(gpuCollection).each(function () {
@@ -469,7 +469,7 @@ function addGPU() {
     });
 }
 function addRes() {
-    $('#res1').after("<tr id='res2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='ressel2'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='resnum2'> </select> </span> </td> <td class='text-left' id='radpr2'></td> </tr>")
+    $('#res1').after("<tr id='res2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='ressel2' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='resnum2'> </select> </span> </td> <button class='button' style='.small' onclick='removeReservoir()'>Remove</button> <td class='text-left' id='radpr2'></td> </tr>")
     $(reservoirCollection).each(function() {
         $('#ressel2').append($("<option>" + this.name + "</option>"))
     });
@@ -491,14 +491,14 @@ var radsel2ran = 0;
 var radsel3ran = 0;
 function addRad() {
     if ($('#radsel3 :selected').text() == "None" || $('#radsel3 :selected').text() == myRad3.name) {
-        $('#rad3').after("<tr id='rad4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel4'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum4'> </select> </span> </td> <td class='text-left' id='radpr4'></td> </tr>")
+        $('#rad3').after("<tr id='rad4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel4' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum4'> </select> </span> <button class='button' style='.small' onclick='removeRadiator4()'>Remove</button> </td> <td class='text-left' id='radpr4'></td> </tr>")
         $('#addRad').remove();
     }
     else if ($('#radsel2 :selected').text() == "None" || $('#radsel2 :selected').text() == myRad2.name) {
-        $('#rad2').after("<tr id='rad3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel3'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum3'> </select> </span> </td> <td class='text-left' id='radpr3'></td> </tr>")
+        $('#rad2').after("<tr id='rad3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel3' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum3'> </select> </span> <button class='button' style='.small' onclick='removeRadiator3()'>Remove</button> </td> <td class='text-left' id='radpr3'></td> </tr>")
     }
     else {
-        $('#rad1').after("<tr id='rad2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel2'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum2'> </select> </span> </td> <td class='text-left' id='radpr2'></td> </tr>")
+        $('#rad1').after("<tr id='rad2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='radsel2' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='radnum2'> </select> </span> <button class='button' style='.small' onclick='removeRadiator2()'>Remove</button> </td> <td class='text-left' id='radpr2'></td> </tr>")
     }
     if(radsel2ran == 0) {
         $(radCollection).each(function() {
@@ -552,20 +552,19 @@ function addRad() {
 var fansel2ran = 0;
 var fansel3ran = 0;
 var fansel4ran = 0;
-var fansel5ran = 0;
 function addFan() {
     if ($('#fansel4 :selected').text() == "None" || $('#fansel4 :selected').text() == myFan4.name) {
-        $('#fan4').after("<tr id='fan5'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel5'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum5'> </select> </span> </td> <td class='text-left' id='fanpr5'></td> </tr>");
+        $('#fan4').after("<tr id='fan5'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel5' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum5'> </select> </span> <button class='button' style='.small' onclick='removeFan5()'>Remove</button> </td> <td class='text-left' id='fanpr5'></td> </tr>");
         $('#addFan').remove();
     }
     else if ($('#fansel3 :selected').text() == "None" || $('#fansel3 :selected').text() == myFan3.name) {
-        $('#fan3').after("<tr id='fan4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel4'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum4'> </select> </span> </td> <td class='text-left' id='fanpr4'></td> </tr>");
+        $('#fan3').after("<tr id='fan4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel4' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum4'> </select> </span> <button class='button' style='.small' onclick='removeFan4()'>Remove</button> </td> <td class='text-left' id='fanpr4'></td> </tr>");
     }
     else if ($('#fansel2 :selected').text() == "None" || $('#fansel2 :selected').text() == myFan2.name) {
-        $('#fan2').after("<tr id='fan3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel3'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum3'> </select> </span> </td> <td class='text-left' id='fanpr3'></td> </tr>");
+        $('#fan2').after("<tr id='fan3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel3' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum3'> </select> </span> <button class='button' style='.small' onclick='removeFan3()'>Remove</button> </td> <td class='text-left' id='fanpr3'></td> </tr>");
     }
     else {
-        $('#fan1').after("<tr id='fan2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel2'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum2'> </select> </span> </td> <td class='text-left' id='fanpr2'></td> </tr>");
+        $('#fan1').after("<tr id='fan2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fansel2' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fannum2'> </select> </span> <button class='button' style='.small' onclick='removeFan2()'>Remove</button> </td> <td class='text-left' id='fanpr2'></td> </tr>");
     }
     if(fansel2ran == 0) {
         $(fanCollection).each(function() {
@@ -601,37 +600,186 @@ function addFan() {
         $('#fannum5').append($("<option>" + m + "</option>"))
     }
     $('#fansel5').change(function() {
-        myFad5 = [];
+        myFan5 = "";
         $(fanCollection).each(function(){
             if(this.name == $('#fansel5 :selected').text()) {
-                myFan5 += this;
+                myFan5 = this;
             }
         });
     });
     $('#fansel4').change(function() {
-        myFan4 = [];
+        myFan4 = "";
         $(fanCollection).each(function(){
             if(this.name == $('#fansel4 :selected').text()) {
-                myFan4 += this;
+                myFan4 = this;
             }
         });
     });
     $('#fansel3').change(function() {
-        myFan3 = [];
-        $(FanCollection).each(function(){
+        myFan3 = "";
+        $(fanCollection).each(function(){
             if(this.name == $('#fansel3 :selected').text()) {
-                myFan3 += this;
+                myFan3 = this;
             }
         });
     });
     $('#fansel2').change(function() {
-        myFan2 = [];
+        myFan2 = "";
         $(fanCollection).each(function(){
             if(this.name == $('#fansel2 :selected').text()) {
-                myFan2 += this;
+                myFan2 = this;
             }
         });
     });
+}
+var fitsel2ran = 0;
+var fitsel3ran = 0;
+var fitsel4ran = 0;
+function addFit() {
+    if ($('#fitsel4 :selected').text() == "None" || $('#fitsel4 :selected').text() == myFitting4.name) {
+        $('#fit4').after("<tr id='fit5'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fitsel5' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fitnum5'> </select> </span> <button class='button' style='.small' onclick='removeFitting5()'>Remove</button> </td> <td class='text-left' id='fitpr5'></td> </tr>");
+        $('#addFit').remove();
+    }
+    else if ($('#fitsel3 :selected').text() == "None" || $('#fitsel3 :selected').text() == myFitting3.name) {
+        $('#fit3').after("<tr id='fit4'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fitsel4' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fitnum4'> </select> </span> <button class='button' style='.small' onclick='removeFitting4()'>Remove</button> </td> <td class='text-left' id='fitpr4'></td> </tr>");
+    }
+    else if ($('#fitsel2 :selected').text() == "None" || $('#fitsel2 :selected').text() == myFitting2.name) {
+        $('#fit2').after("<tr id='fit3'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fitsel3' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fitnum3'> </select> </span> <button class='button' style='.small' onclick='removeFitting3()'>Remove</button> </td> <td class='text-left' id='fitpr3'></td> </tr>");
+    }
+    else {
+        $('#fit1').after("<tr id='fit2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='fitsel2' style = 'width: 400px;'> <option>None</option> </select> </span> <span class='custom-dropdown custom-dropdown--white'>         Quantity: <select class='custom-dropdown__select custom-dropdown__select--white' id='fitnum2'> </select> </span> <button class='button' style='.small' onclick='removeFitting2()'>Remove</button> </td> <td class='text-left' id='fitpr2'></td> </tr>");
+    }
+    if(fitsel2ran == 0) {
+        $(fittingCollection).each(function() {
+            $('#fitsel2').append($("<option>" + this.name + "</option>"))
+        });
+        for(var j = 1; j < 21; j++) {
+            $('#fitnum2').append($("<option>" + j + "</option>"))
+        }
+        fitsel2ran = 1;
+    }
+    fitsel3ran += 1;
+    fitsel4ran += 1;
+    if(fitsel3ran == 2) {
+        $(fittingCollection).each(function() {
+            $('#fitsel3').append($("<option>" + this.name + "</option>"))
+        });
+        for(var k = 1; k < 21; k++) {
+            $('#fitnum3').append($("<option>" + k + "</option>"))
+        }
+    }
+    if(fitsel4ran == 3) {
+        $(fittingCollection).each(function() {
+            $('#fitsel4').append($("<option>" + this.name + "</option>"))
+        });
+        for(var l = 1; l < 21; l++) {
+            $('#fitnum4').append($("<option>" + l + "</option>"))
+        }
+    }
+    $(fittingCollection).each(function() {
+        $('#fitsel5').append($("<option>" + this.name + "</option>"))
+    });
+    for(var m = 1; m < 21; m++) {
+        $('#fitnum5').append($("<option>" + m + "</option>"))
+    }
+    $('#fitsel5').change(function() {
+        myFitting5 = [];
+        $(fittingCollection).each(function(){
+            if(this.name == $('#fitsel5 :selected').text()) {
+                myFitting5 += this;
+            }
+        });
+    });
+    $('#fitsel4').change(function() {
+        myFitting4 = [];
+        $(fittingCollection).each(function(){
+            if(this.name == $('#fitsel4 :selected').text()) {
+                myFitting4 += this;
+            }
+        });
+    });
+    $('#fitsel3').change(function() {
+        myFitting3 = [];
+        $(FanCollection).each(function(){
+            if(this.name == $('#fitsel3 :selected').text()) {
+                myFitting3 += this;
+            }
+        });
+    });
+    $('#fitsel2').change(function() {
+        myFitting2 = [];
+        $(fittingCollection).each(function(){
+            if(this.name == $('#fitsel2 :selected').text()) {
+                myFitting2 += this;
+            }
+        });
+    });
+}
+function removeGPU2() {
+    $('.GPU2').remove();
+    $('.GPUB2').remove();
+    myGPU2 = "";
+    myGPUBlock2 = "";
+}
+function removeGPU3() {
+    $('.GPU3').remove();
+    $('.GPUB3').remove();
+    myGPU3 = "";
+    myGPUBlock3 = "";
+}
+function removeGPU4() {
+    $('.GPU4').remove();
+    $('.GPUB4').remove();
+    myGPU4 = "";
+    myGPUBlock4 = "";
+}
+function removeFitting2() {
+    $("#fit2").remove();
+    myFitting2 = "";
+}
+function removeFitting3() {
+    $("#fit3").remove();
+    myFitting3 = "";
+}
+function removeFitting4() {
+    $("#fit4").remove();
+    myFitting4 = "";
+}
+function removeFitting5() {
+    $("#fit5").remove();
+    myFitting5 = "";
+}
+function removeReservoir() {
+    $('#res2').remove();
+    myReservoir2 = "";
+}
+function removeRadiator2() {
+    $('#rad2').remove();
+    myRad2 = "";
+}
+function removeRadiator3() {
+    $('#rad3').remove();
+    myRad3 = "";
+}
+function removeRadiator4() {
+    $('#rad4').remove();
+    myRad4 = "";
+}
+function removeFan2() {
+    $('#fan2').remove();
+    myFan2 = "";
+}
+function removeFan3() {
+    $('#fan3').remove();
+    myFan3 = "";
+}
+function removeFan4() {
+    $('#fan4').remove();
+    myFan4 = "";
+}
+function removeFan5() {
+    $('#fan5').remove();
+    myFan5 = "";
 }
 function CompComp() {
     var incomp = [];
@@ -768,6 +916,9 @@ var gpucount = 0;
 var fan120 = 0;
 var fan140 = 0;
 var fan80 = 0;
+var rad360 = 0;
+var rad240 = 0;
+var rad120 = 0;
 function LoopComp() {
     var cpublockcomp = 0;
     for (var l = 0; l < myCPUBlock.socket.length; l++) {
@@ -892,49 +1043,49 @@ function LoopComp() {
         }
     }
     if(myFan1.size == 120) {
-        fan120 += $('#fannum1 :selected').text();
+        fan120 += parseInt($('#fannum1 :selected').text());
     }
     else if(myFan1.size == 140) {
-        fan140 += $('#fannum1 :selected').text();
+        fan140 += parseInt($('#fannum1 :selected').text());
     }
-    else {
-        fan80 += $('#fannum1 :selected').text();
+    else if(myFan1.size == 80) {
+        fan80 += parseInt($('#fannum1 :selected').text());
     }
     if(myFan2.size == 120) {
-        fan120 += $('#fannum2 :selected').text();
+        fan120 += parseInt($('#fannum2 :selected').text());
     }
     else if(myFan2.size == 140) {
-        fan140 += $('#fannum2 :selected').text();
+        fan140 += parseInt($('#fannum2 :selected').text());
     }
-    else {
-        fan80 += $('#fannum2 :selected').text();
+    else if(myFan2.size == 80) {
+        fan80 += parseInt($('#fannum2 :selected').text());
     }
     if(myFan3.size == 120) {
-        fan120 += $('#fannum3 :selected').text();
+        fan120 += parseInt($('#fannum3 :selected').text());
     }
     else if(myFan3.size == 140) {
-        fan140 += $('#fannum3 :selected').text();
+        fan140 += parseInt($('#fannum3 :selected').text());
     }
-    else {
-        fan80 += $('#fannum3 :selected').text();
+    else if(myFan3.size == 80) {
+        fan80 += parseInt($('#fannum3 :selected').text());
     }
     if(myFan4.size == 120) {
-        fan120 += $('#fannum4 :selected').text();
+        fan120 += parseInt($('#fannum4 :selected').text());
     }
     else if(myFan4.size == 140) {
-        fan140 += $('#fannum4 :selected').text();
+        fan140 += parseInt($('#fannum4 :selected').text());
     }
-    else {
-        fan80 += $('#fannum4 :selected').text();
+    else if(myFan4.size == 80) {
+        fan80 += parseInt($('#fannum5 :selected').text());
     }
     if(myFan5.size == 120) {
-        fan120 += $('#fannum5 :selected').text();
+        fan120 += parseInt($('#fannum5 :selected').text());
     }
     else if(myFan5.size == 140) {
-        fan140 += $('#fannum5 :selected').text();
+        fan140 += parseInt($('#fannum5 :selected').text());
     }
-    else {
-        fan80 += $('#fannum5 :selected').text();
+    else if(myFan5.size == 80) {
+        fan80 += parseInt($('#fannum5 :selected').text());
     }
     if(fan120 > myCase.fan120) {
         loopcomp = 1;
@@ -948,51 +1099,48 @@ function LoopComp() {
         loopcomp = 1;
         loopincomp.push(" You have too many 80mm fans for your case")
     }
-    var rad360 = 0;
-    var rad240 = 0;
-    var rad120 = 0;
     if(myRad1 !== "" && myRad1.name !== "None") {
         if(myRad1.size == 360) {
-            rad360 += (1 * $("#radnum1 :selected").text());
+            rad360 += (1 * parseInt($("#radnum1 :selected").text()));
         }
         else if(myRad1.size == 240) {
-            rad240 += (1 * $("#radnum1 :selected").text());
+            rad240 += (1 * parseInt($("#radnum1 :selected").text()));
         }
         else {
-            rad120 += (1 * $("#radnum1 :selected").text());
+            rad120 += (1 * parseInt($("#radnum1 :selected").text()));
         }
     }
     if(myRad2 !== "" && myRad2.name !== "None") {
         if(myRad2.size == 360) {
-            rad360 += (1 * $("#radnum2 :selected").text());
+            rad360 += (1 * parseInt($("#radnum2 :selected").text()));
         }
         else if(myRad2.size == 240) {
-            rad240 += (1 * $("#radnum2 :selected").text());
+            rad240 += (1 * parseInt($("#radnum2 :selected").text()));
         }
         else {
-            rad120 += (1 * $("#radnum2 :selected").text());
+            rad120 += (1 * parseInt($("#radnum2 :selected").text()));
         }
     }
     if(myRad3 !== "" && myRad3.name !== "None") {
         if(myRad3.size == 360) {
-            rad360 += (1 * $("#radnum3 :selected").text());
+            rad360 += (1 * parseInt($("#radnum3 :selected").text()));
         }
         else if(myRad3.size == 240) {
-            rad240 += (1 * $("#radnum3 :selected").text());
+            rad240 += (1 * parseInt($("#radnum3 :selected").text()));
         }
         else {
-            rad120 += (1 * $("#radnum3 :selected").text());
+            rad120 += (1 * parseInt($("#radnum3 :selected").text()));
         }
     }
     if(myRad4 !== "" && myRad4.name !== "None") {
         if(myRad4.size == 360) {
-            rad360 += (1 * $("#radnum4 :selected").text());
+            rad360 += (1 * parseInt($("#radnum3 :selected").text()));
         }
         else if(myRad4.size == 240) {
-            rad240 += (1 * $("#radnum4 :selected").text());
+            rad240 += (1 * parseInt($("#radnum3 :selected").text()));
         }
         else {
-            rad120 += (1 * $("#radnum4 :selected").text());
+            rad120 += (1 * parseInt($("#radnum3 :selected").text()));
         }
     }
     fittingcount += ($("#radnum1 :selected").text() * 2);
@@ -1020,6 +1168,7 @@ function LoopComp() {
             loopincomp.push("Congratulations, everything is compatible");
         }
     }
+    console.log(fan120);
     loopcomp = 0;
     document.getElementById("loopiscomp").innerHTML = loopincomp;
     document.getElementById("fitcount").innerHTML = fittingcount;

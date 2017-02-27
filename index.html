@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <meta charset="utf-8" />
     <title>Table Style</title>
-    <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width,">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="scripts.js"></script>
     <script>(function(){
@@ -34,10 +34,10 @@
     </thead>
     <tbody class="table-hover">
     <tr>
-        <td class="text-left">CPU</td>
+        <td class="text-left" style="width: 300px;">CPU</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="cpusel">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="cpusel" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
@@ -47,8 +47,8 @@
     <tr>
         <td class="text-left">Motherboard</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="mobosel">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="mobosel" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
@@ -58,8 +58,8 @@
     <tr class="GPU1">
         <td class="text-left">GPU</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="gpusel1">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="gpusel1" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
@@ -77,8 +77,8 @@
     <tr>
         <td class="text-left">Case</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="casesel">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="casesel" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
@@ -109,10 +109,10 @@
     </thead>
     <tbody class="table-hover">
     <tr>
-        <td class="text-left">CPU Block</td>
+        <td class="text-left" style="width: 300px;">CPU Block</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="cpubsel">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="cpubsel" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
@@ -122,8 +122,8 @@
     <tr class="GPUB1">
         <td class="text-left">GPU Block</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="gpubsel1">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="gpubsel1" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
@@ -133,8 +133,8 @@
     <tr>
         <td class="text-left">Tubing</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="tubsel">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="tubsel" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
@@ -144,14 +144,14 @@
     <tr id="fit1">
         <td class="text-left">Fittings</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="fitsel1">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fitsel1" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
             <span class="custom-dropdown custom-dropdown--white">
                 Quantity:
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="fitnum1">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fitnum1" style="width: 80px;">
                 </select>
             </span>
         </td>
@@ -167,14 +167,14 @@
     <tr>
         <td class="text-left">Pump</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumpsel1">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumpsel1" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
             <span class="custom-dropdown custom-dropdown--white">
                 Quantity:
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumpnum1">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumpnum1" style="width: 80px;">
                     <option>1</option>
                     <option>2</option>
                 </select>
@@ -185,14 +185,14 @@
     <tr>
         <td class="text-left">Pump Top</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumptopsel">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumptopsel" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
             <span class="custom-dropdown custom-dropdown--white">
                 Quantity:
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumptopnum">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="pumptopnum" style="width: 80px;">
                     <option>1</option>
                     <option>2</option>
                 </select>
@@ -203,14 +203,14 @@
     <tr id="res1">
         <td class="text-left">Reservoir</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="ressel1">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="ressel1" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
             <span class="custom-dropdown custom-dropdown--white">
                 Quantity:
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="resnum1">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="resnum1" style="width: 80px;">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -229,14 +229,14 @@
     <tr id="rad1">
         <td class="text-left">Radiator</td>
         <td class="text-left">
-            <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="radsel1">
+            <span class="custom-dropdown custom-dropdown--white" style="width: 400px;">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="radsel1" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
             <span class="custom-dropdown custom-dropdown--white">
                 Quantity:
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="radnum1">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="radnum1" style="width: 80px;">
                 </select>
             </span>
         </td>
@@ -253,13 +253,13 @@
         <td class="text-left">Fans</td>
         <td>
             <span class="custom-dropdown custom-dropdown--white text-left">
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="fansel1">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fansel1" style="width: 400px;">
                     <option>None</option>
                 </select>
             </span>
             <span class="custom-dropdown custom-dropdown--white text-right">
                 Quantity:
-                <select class="custom-dropdown__select custom-dropdown__select--white" id="fannum1">
+                <select class="custom-dropdown__select custom-dropdown__select--white" id="fannum1" style="width: 80px;">
                 </select>
             </span>
         </td>

@@ -389,7 +389,6 @@ function addGPU() {
     else {
         $('.GPU1').after( "<tr class='GPU2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpusel2' style = 'width: 400px;'> <option>None</option> </select> </span> <button class='button' style='.small' onclick='removeGPU2()'>Remove</button> </td> <td class='text-left' id='gpupr'></td></tr>" );
         $('.GPUB1').after( "<tr class='GPUB2'> <td class='text-left'></td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'> <select class='custom-dropdown__select custom-dropdown__select--white' id='gpubsel2' style = 'width: 400px;'> <option>None</option> </select> </span> </td> <td class='text-left' id='gpupr'></td></tr>" );
-        $('.GPUB2').after("<tr> <td class='text-left'>GPU Bridge</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'><select class='custom-dropdown__select custom-dropdown__select--white' id='bridgesel' style = 'width: 400px;'> <option>None</option> </select> </span> </td> <td class='text-left' id='bridgepr'></td></tr>");
         if (($('#gpusel4 :selected').text() == "None" || $('#gpusel4 :selected').text() == myGPU4.name) && ($('#gpusel3 :selected').text() == "None" || $('#gpusel3 :selected').text() == myGPU3.name)) {
             $('#addGPU').remove();
         }
@@ -405,6 +404,7 @@ function addGPU() {
         $(bridgeCollection).each(function() {
             $('#bridgesel').append($("<option>" + this.name + "</option>"))
         });
+        $('.GPUB2').after("<tr id='GPUB'> <td class='text-left'>GPU Bridge</td> <td class='text-left'> <span class='custom-dropdown custom-dropdown--white'><select class='custom-dropdown__select custom-dropdown__select--white' id='bridgesel' style = 'width: 400px;'> <option>None</option> </select> </span> </td> <td class='text-left' id='bridgepr'></td></tr>");
         gpusel2ran = 0;
     }
     if(gpusel3ran == 1) {
@@ -769,6 +769,10 @@ function removeGPU2() {
     if($('#addGPU').length == 0) {
         $('#case').before("<tr id='addGPU'> <td class='text-left'></td> <td class='text-left'> <button class='button' style='.small' onclick='addGPU()'>Add GPU</button> </td> <td></td> </tr>")
     }
+    if($('#gpusel4 :selected').text() !== "None" && $('#gpusel4 :selected').text() !== myGPU4.name && $('#gpusel3 :selected').text() !== "None" && $('#gpusel3 :selected').text() !== myGPU3.name && $('#gpusel2 :selected').text() !== "None" && $('#gpusel2 :selected').text() !== myGPU2.name) {
+        $('#GPUB').remove();
+        console.log("cuck");
+    }
 }
 function removeGPU3() {
     $('.GPU3').remove();
@@ -778,6 +782,9 @@ function removeGPU3() {
     if($('#addGPU').length == 0) {
         $('#case').before("<tr id='addGPU'> <td class='text-left'></td> <td class='text-left'> <button class='button' style='.small' onclick='addGPU()'>Add GPU</button> </td> <td></td> </tr>")
     }
+    if($('#gpusel4 :selected').text() !== "None" && $('#gpusel4 :selected').text() !== myGPU4.name && $('#gpusel3 :selected').text() !== "None" && $('#gpusel3 :selected').text() !== myGPU3.name && $('#gpusel2 :selected').text() !== "None" && $('#gpusel2 :selected').text() !== myGPU2.name) {
+        $('#GPUB').remove();
+    }
 }
 function removeGPU4() {
     $('.GPU4').remove();
@@ -786,6 +793,9 @@ function removeGPU4() {
     myGPUBlock4 = "";
     if($('#addGPU').length == 0) {
         $('#case').before("<tr id='addGPU'> <td class='text-left'></td> <td class='text-left'> <button class='button' style='.small' onclick='addGPU()'>Add GPU</button> </td> <td></td> </tr>")
+    }
+    if($('#gpusel4 :selected').text() !== "None" && $('#gpusel4 :selected').text() !== myGPU4.name && $('#gpusel3 :selected').text() !== "None" && $('#gpusel3 :selected').text() !== myGPU3.name && $('#gpusel2 :selected').text() !== "None" && $('#gpusel2 :selected').text() !== myGPU2.name) {
+        $('#GPUB').remove();
     }
 }
 function removeFitting2() {
